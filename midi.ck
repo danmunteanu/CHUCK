@@ -39,8 +39,8 @@ for (0 => int i; i < 11; i++)
 [0, 3, 7] @=> int minor[];
 
 
-SinOsc osc => dac => WvOut waveOut => blackhole;
-"Midi.wav" => waveOut.wavFilename;
+SinOsc osc => dac;// => WvOut waveOut => blackhole;
+// "Midi.wav" => waveOut.wavFilename;
 
 0.35 => osc.gain;
 

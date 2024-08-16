@@ -1,6 +1,6 @@
 SndBuf guitar;// => dac;
 
-string filename;
+//string filename;
 //  filename => guitar.read;
 
 // <<< guitar.samples() >>>;
@@ -14,12 +14,12 @@ string filename;
 string statii[20];
 
 //  Controls the speed of the samples
-1.1f => float rate;
+1.0f => float rate;
 
 fun void play_sample (string sound)
 {
     SndBuf buf;
-    me.dir() + sound => filename;
+    me.dir() + sound => string filename;
     filename => buf.read;
 
     (1.0 / rate) * (buf.samples() / 44100.0) * 1::second => dur seconds;
@@ -33,7 +33,7 @@ fun void play_sample (string sound)
 }
 
 //  Load Station Names
-fun void load_stations()
+fun void load_stations(string folder)
 {
     "01_pantelimon.wav" => statii[0];
     "02_republica.wav" => statii[1];
@@ -55,27 +55,30 @@ fun void load_stations()
     "18_stefan_cel_mare.wav" => statii[17];
     "19_obor.wav" => statii[18];
     "20_piata_iancului.wav" => statii[19];
+
+    for( string statie : statii )
+    {
+        folder + "/" + statie => statie;
+    }
 }
 
 //  to stop a sample:
 //  set the SndBuf position to a sample past the end of the sample buffer
 //  guitar.samples() => guitar.pos; //  STOP PLAYBACK
 
-// play_sample("METRO/urmeaza_statia.wav");
-// play_sample("METRO/piata_romana.wav");
-// play_sample("METRO/directia_preciziei.wav");
+play_sample("METRO/urmeaza_statia.wav");
+play_sample("METRO/piata_romana.wav");
+play_sample("METRO/directia_preciziei.wav");
 
 //  Incarca statii
-load_stations();
+load_stations("STATII_M1");
 
 //  Enumera statii
 for( string statie : statii )
 {
-    // print the element
     <<< statie >>>;
 
     play_sample("METRO/urmeaza_statia.wav");
 
-    "STATII_M1" => string folder;
-    play_sample(folder + "/" + statie);
+    play_sample(statie);
 }

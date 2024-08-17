@@ -1,0 +1,16 @@
+"01_angel_saligny.wav" => statii[0];
+"02_nicolae_teclu.wav" => statii[1];
+"03_1_dec_1918.wav" => statii[2];
+"04_nicolae_grigorescu.wav" => statii[3];
+"05_dristor.wav" => statii[4];
+"06_mihai_bravu.wav" => statii[5];
+"07_timpuri_noi.wav" => statii[6];
+"08_piata_unirii.wav" => statii[7];
+"09_izvor.wav" => statii[8];
+"10_eroilor.wav" => statii[9];
+"11_politehnica.wav" => statii[10];
+"12_lujerului.wav" => statii[11];
+"13_gorjului.wav" => statii[12];
+"14_pacii.wav" => statii[13];
+"15_preciziei.wav" => statii[14];
+

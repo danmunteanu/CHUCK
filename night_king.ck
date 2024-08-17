@@ -45,12 +45,28 @@ play(3, 0.5::second);
 play(5, 0.5::second);
 play(5, 0.5::second);
 
+//  pause
+Std.mtof (0) => osc.freq;
+1 => env1.keyOn;
+1::second => now;
 
 //  2151
 play(2, 0.5::second);
 play(1, 0.5::second);
 play(5, 0.5::second);
 play(1, 0.5::second);
+
+//  pause
+Std.mtof (0) => osc.freq;
+1 => env1.keyOn;
+1::second => now;
+
+//  355
+play(3, 0.5::second);
+play(5, 0.5::second);
+play(5, 0.5::second);
+play(6, 0.5::second);
+
 
 // while (true)
 // {

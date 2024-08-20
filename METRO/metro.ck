@@ -36,6 +36,28 @@ fun void play_sample (string sound)
     seconds => now;
 }
 
+fun void load_m2(string folder)
+{
+    15 => statii.size;
+
+    "01_pipera.wav" => statii[0];
+    "02_aurel_vlaicu.wav" => statii[1];
+    "03_aviatorilor.wav" => statii[2];
+    "04_piata_victoriei.wav" => statii[3];
+    "05_gara_de_nord.wav" => statii[4];
+    "06_piata_romana.wav" => statii[5];
+    "07_universitate.wav" => statii[6];
+    "08_piata_unirii.wav" => statii[7];
+    "08_tineretului.wav" => statii[8];
+    "09_eroii_revolutiiei.wav" => statii[9];
+    "10_ctin_brancoveanu.wav" => statii[10];
+    "11_piata_sudului.wav" => statii[11];
+    "12_aparatorii_patriei.wav" => statii[12];
+    "13_dimitrie_leonida.wav" => statii[13];
+    "14_berceni.wav" => statii[14];
+    "15_tudor_arghezi.wav" => statii[15];
+}
+
 fun void load_m3(string folder)
 {
     15 => statii.size;
@@ -86,12 +108,15 @@ fun void load_m1(string folder)
 
 fun void load_line (string line)
 {
-    "STATII_" + line => string folder;
+    line => string folder;
 
     if (line.upper() == "M1")
         load_m1(folder);
 
-    if (line.upper() == "M3")
+    else if (line.upper() == "M2")
+        load_m2(folder);
+
+    else if (line.upper() == "M3")
         load_m3(folder);
 
     //  Prepend folder name
@@ -108,16 +133,16 @@ fun void load_line (string line)
 // play_sample("METRO/directia_preciziei.wav");
 
 
-"M3" => string linia;
+"M2" => string linia;
 load_line (linia);
-play_sample("STATII_" + linia + "/" + linia + ".wav");
+play_sample(linia + "/" + linia + ".wav");
 
 //  Enumera statii
 for( string statie : statii )
 {
     <<< statie >>>;
 
-    play_sample("METRO/urmeaza_statia.wav");
+    play_sample("urmeaza_statia.wav");
 
     play_sample(statie);
 }

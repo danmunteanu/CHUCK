@@ -1,0 +1,16 @@
+"01_pipera.wav" => statii[0];
+"02_aurel_vlaicu.wav" => statii[1];
+"03_aviatorilor.wav" => statii[2];
+"04_piata_victoriei.wav" => statii[3];
+"05_gara_de_nord.wav" => statii[4];
+"06_piata_romana.wav" => statii[5];
+"07_universitate.wav" => statii[6];
+"08_piata_unirii.wav" => statii[7];
+"08_tineretului.wav" => statii[8];
+"09_eroii_revolutiiei.wav" => statii[9];
+"10_ctin_brancoveanu.wav" => statii[10];
+"11_piata_sudului.wav" => statii[11];
+"12_aparatorii_patriei.wav" => statii[12];
+"13_dimitrie_leonida.wav" => statii[13];
+"14_berceni.wav" => statii[14];
+"15_tudor_arghezi.wav" => statii[15];

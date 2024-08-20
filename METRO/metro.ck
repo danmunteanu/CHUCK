@@ -132,15 +132,15 @@ fun void load_line (string line)
 // play_sample("METRO/piata_romana.wav");
 // play_sample("METRO/directia_preciziei.wav");
 
-"M2" => string linia;
-load_line (linia);
-
-//  Announce The Line
-play_sample(linia + "/" + linia + ".wav");
+"M2" => string line;
+load_line (line);
 
 //  Save To .Wav?
-// dac => WvOut waveOut => blackhole;
-// "stations_" + linia + ".wav" => waveOut.wavFilename;
+dac => WvOut waveOut => blackhole;
+"read_stations_" + line + ".wav" => waveOut.wavFilename;
+
+//  Announce The Line
+play_sample(line + "/" + line + ".wav");
 
 //  Enumerate stations
 for( string station : stations )
@@ -148,9 +148,6 @@ for( string station : stations )
     <<< "Urmeaza Statia: " + station >>>;
 
     play_sample("urmeaza_statia.wav");
-
-    //  cu peronul pe partea stanga / dreapta
-    //  + ceva cu magistrala m3
 
     play_sample(station);
 

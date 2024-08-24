@@ -20,9 +20,17 @@ string stations[30];
 //  Controls the speed of the samples
 1.0f => float rate;
 
+SndBuf buf;
+
+Delay del;
+0.5 => del.gain;
+1::second / 2 => del.max;
+
+//  Patch the delay in
+buf => del => dac;
+
 fun void play_sample (string sound)
 {
-    SndBuf buf;
     me.dir() + sound => string filename;
     filename => buf.read;
 
@@ -31,7 +39,6 @@ fun void play_sample (string sound)
         
     rate => buf.rate;
 
-    buf => dac;
     0 => buf.pos;
     seconds => now;
 }
@@ -132,12 +139,21 @@ fun void load_line (string line)
 // play_sample("METRO/piata_romana.wav");
 // play_sample("METRO/directia_preciziei.wav");
 
+//  Toggle Save To Wav
+0 => int SaveToWav;
+
 "M2" => string line;
 load_line (line);
 
+
+//0.5 => del.gain;
+
 //  Save To .Wav?
-dac => WvOut waveOut => blackhole;
-"read_stations_" + line + ".wav" => waveOut.wavFilename;
+if (1 == SaveToWav)
+{
+    dac => WvOut waveOut => blackhole;
+    "read_stations_" + line + ".wav" => waveOut.wavFilename;
+}
 
 //  Announce The Line
 play_sample(line + "/" + line + ".wav");

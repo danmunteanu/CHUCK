@@ -44,6 +44,7 @@ Std.mtof (0) => osc.freq;
 play(3, 0.5::second);
 play(5, 0.5::second);
 play(5, 0.5::second);
+play(2, 1::second);
 
 //  pause
 Std.mtof (0) => osc.freq;

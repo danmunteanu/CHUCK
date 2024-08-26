@@ -152,8 +152,13 @@ F# F# F# F# A E F# F# E C#
 G# G# G# C# F# F# F# B F# F# B
 F# F# F# F# A E F# F# E" => string chorus;
 
+//	load C major
+score_to_music ("C D E F G A B C");
+
+score_to_music(chorus);
+
 //score_to_music (verse1);
-score_to_music (chorus);
+//score_to_music (chorus);
 
 play_music ();
 

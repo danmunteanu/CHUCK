@@ -9,18 +9,19 @@ SinOsc osc
 
 0.55 => osc.gain;
 
-1::second / 3 => dur beat;
-(0::ms, beat / 2, 0, 1::ms) => env1.set;
+1::second / 2 => dur beat;
+(0::ms, beat / 2, 0.3, 1::ms) => env1.set;
 
-6 => clape.octave;
+5 => clape.octave;
 //clape.note2freq("G") => osc.freq;
 
 // 1 => env1.keyOn;
 // beat => now;
 
-5 => int octave;
-clape.gen_minor_scale("C", octave);
-clape.gen_major_scale("G", octave);
+4 => int octave;
+//clape.gen_minor_scale("
+F", octave);
+clape.gen_major_scale("F#", octave);
 
 for (int midi : clape.scale)
 	{

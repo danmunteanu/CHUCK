@@ -37,7 +37,7 @@ fun void play_music()
 		
 		1::second / 2  => dur len;
 
-		clape.note_freq(note) => osc.freq;
+		clape.note2freq(note) => osc.freq;
 		
         1 => env1.keyOn;
         

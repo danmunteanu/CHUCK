@@ -7,13 +7,8 @@ public class Clape
 
 	//	root = octave * 12
 
-	fun float note_freq (string n)
+	fun int note2index(string note)
 	{
-		octave * 12 => int root;
-
-		//	lookup note
-		n.upper() => string note;
-		
 		0 => int idx;
 		
 		if ("C" == note) 0 => idx;
@@ -45,9 +40,19 @@ public class Clape
 		
 		if ("B" == note) 11 => idx;
 
-		Std.mtof(root + idx) => float freq;
+		return idx;
+	}
 
-		return freq;
+	fun float note2freq (string note)
+	{
+		octave * 12 => int root;
+
+		//	get the index of the note	
+		note2index(note.upper()) => int idx;
+
+		<<< "Index " + idx >>>;
+
+		return Std.mtof(root + idx);
 	}
 
 	fun void up_octave()
@@ -97,4 +102,45 @@ public class Clape
 		// reset the tokenizer
 		strtok.reset();
 	}
+
+	fun string index2Note(int idx)
+	{
+		idx % 12 => idx;
+
+		if (idx == 0) return "C";
+			if (idx == 1) return "C#";
+		if (idx == 2) return "D";
+			if (idx == 3) return "D#";
+		if (idx == 4) return "E";
+		if (idx == 5) return "F";
+			if (idx == 6) return "F#";
+		if (idx == 7) return "G";
+			if (idx == 8) return "G#";
+		if (idx == 9) return "A";
+			if (idx == 10) return "A#";
+		if (idx == 11) return "B";
+
+		return "C";
+	}
+
+	fun void gen_major_scale(string start_note)
+	{
+		//  W W H W W W H - Major Scale
+
+		note2index(start_note) => int idx;
+
+		8 => notes.size;
+
+		index2Note(idx) => notes[0];	(idx + 2)% 12 => idx;	//	W
+		index2Note(idx) => notes[1];	(idx + 2)% 12 => idx;	//	W
+		index2Note(idx) => notes[2];	(idx + 1)% 12 => idx;	//	H
+		index2Note(idx) => notes[3];	(idx + 2)% 12 => idx;	//	W
+		index2Note(idx) => notes[4];	(idx + 2)% 12 => idx;	//	W
+		index2Note(idx) => notes[5];	(idx + 2)% 12 => idx;	//	W
+		index2Note(idx) => notes[6];	(idx + 1)% 12 => idx;	//	H
+		index2Note(idx) => notes[7];	
+
+
+	}
+
 }

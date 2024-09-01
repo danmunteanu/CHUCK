@@ -1,4 +1,5 @@
-//  W W H W W W H - Major Scale
+//  A major scale is a pattern of intervals
+//   W W H W W W H
 
 Clape clape;
 
@@ -17,13 +18,13 @@ clape.note2freq("G") => osc.freq;
 // 1 => env1.keyOn;
 // beat => now;
 
-clape.gen_major_scale("G");
+clape.gen_major_scale("G", 5);
 
-for (string note : clape.notes)
+for (int midi : clape.scale)
 	{
-		<<< note >>>;
+		<<< midi >>>;
 
-		clape.note2freq(note) => osc.freq;
+        Std.mtof(midi) => osc.freq;
 		
         1 => env1.keyOn;
         

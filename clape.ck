@@ -129,50 +129,42 @@ public class Clape
 		return "C";
 	}
 
+	fun void gen_minor_scale(string start_note, int octave)
+	{
+		//	W H W W H W W / T S T T S T T
+		[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor[];
+
+		note2index(start_note) => int note_index;	//	Get note index
+		
+		0 => int midi;
+		8 => scale.size;
+		for (0 => int jdx; jdx < 8; jdx++)
+		{
+			note_index + minor[jdx] => note_index;
+			octave * 12 + note_index => midi => scale[jdx];
+		}		
+	}
+
 	fun void gen_major_scale(string start_note, int octave)
 	{
-		//  W W H W W W H - Major Scale
+		//	Major Scale
+		//  W W H W W W H / T T S T T T S
+
+		//	<<< start_note + "" + octave >>>;
 
 		//	C, 5 => 5 * 12 + index(C)
 
-		note2index(start_note) => int idx;	//	Get note index
+		[0, 2, 2, 1, 2, 2, 2, 1] @=> int major[];
+
+		note2index(start_note) => int note_index;	//	Get note index
 		
-		//	Compute midi for note
-		octave * 12 + idx => int midi;	midi => scale[0];
-		
-		idx + 2 => idx;	//	W
-		octave * 12 + idx => midi;	midi => scale[1];
-
-		idx + 2 => idx;	//	W
-		octave * 12 + idx => midi;	midi => scale[2];
-
-		idx + 1 => idx;	//	H
-		octave * 12 + idx => midi;	midi => scale[3];
-
-		idx + 2 => idx;	//	W
-		octave * 12 + idx => midi;	midi => scale[4];
-
-		idx + 2 => idx;	//	W
-		octave * 12 + idx => midi;	midi => scale[5];
-
-		idx + 2 => idx;	//	W
-		octave * 12 + idx => midi;	midi => scale[6];
-
-		idx + 1 => idx;	//	H
-		octave * 12 + idx => midi;	midi => scale[7];
-
-		// <<< start_note + "" + octave + " has MIDI: " + midi >>>;
-
-		/*8 => notes.size;
-		index2Note(idx) => notes[0];	(idx + 2)% 12 => idx;	//	W
-		index2Note(idx) => notes[1];	(idx + 2)% 12 => idx;	//	W
-		index2Note(idx) => notes[2];	(idx + 1)% 12 => idx;	//	H
-		index2Note(idx) => notes[3];	(idx + 2)% 12 => idx;	//	W
-		index2Note(idx) => notes[4];	(idx + 2)% 12 => idx;	//	W
-		index2Note(idx) => notes[5];	(idx + 2)% 12 => idx;	//	W
-		index2Note(idx) => notes[6];	(idx + 1)% 12 => idx;	//	H
-		index2Note(idx) => notes[7];	*/
-
+		0 => int midi;
+		8 => scale.size;
+		for (0 => int jdx; jdx < 8; jdx++)
+		{
+			note_index + major[jdx] => note_index;
+			octave * 12 + note_index => midi => scale[jdx];
+		}		
 	}
 
 }

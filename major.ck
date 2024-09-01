@@ -19,7 +19,8 @@ SinOsc osc
 // beat => now;
 
 5 => int octave;
-clape.gen_major_scale("A", octave);
+clape.gen_minor_scale("C", octave);
+clape.gen_major_scale("G", octave);
 
 for (int midi : clape.scale)
 	{

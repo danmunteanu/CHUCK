@@ -9,20 +9,21 @@ SinOsc osc
 
 0.55 => osc.gain;
 
-1::second => dur beat;
+1::second / 3 => dur beat;
 (0::ms, beat / 2, 0, 1::ms) => env1.set;
 
 6 => clape.octave;
-clape.note2freq("G") => osc.freq;
+//clape.note2freq("G") => osc.freq;
 
 // 1 => env1.keyOn;
 // beat => now;
 
-clape.gen_major_scale("G", 5);
+5 => int octave;
+clape.gen_major_scale("A", octave);
 
 for (int midi : clape.scale)
 	{
-		<<< midi >>>;
+		<<< midi + " " + clape.index2Note(midi - (12 * octave)) >>>;
 
         Std.mtof(midi) => osc.freq;
 		

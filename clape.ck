@@ -1,3 +1,11 @@
+
+//	Chords using notes from the scale => Diatonic
+
+//	Chords using notes not all from the scale => Chromatic
+
+//	Chord 1: Tonic (e.g. C major => C-E-G)
+//	Chord 5: Dominant (C major => G-B-D)
+
 public class Clape
 {
 	//	60 MIDI = C5

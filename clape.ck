@@ -13,6 +13,12 @@ public class Clape
 	//	The notes we'll play
 	string notes[100];
 
+	//  W W H W W W H / T T S T T T S
+	[0, 2, 2, 1, 2, 2, 2, 1] @=> int major[];
+
+	//	W H W W H W W / T S T T S T T
+	[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor[];
+
 	//	minor/major scale of midi notes
 	int scale[8];
 
@@ -55,6 +61,42 @@ public class Clape
 		if ("B" == note) 11 => idx;
 
 		return idx;
+	}
+
+	fun string index2Note(int idx)
+	{
+		idx % 12 => idx;
+
+		if (idx == 0) return "C";
+			if (idx == 1) return "C#";
+		if (idx == 2) return "D";
+			if (idx == 3) return "D#";
+		if (idx == 4) return "E";
+		if (idx == 5) return "F";
+			if (idx == 6) return "F#";
+		if (idx == 7) return "G";
+			if (idx == 8) return "G#";
+		if (idx == 9) return "A";
+			if (idx == 10) return "A#";
+		if (idx == 11) return "B";
+
+		return "C";
+	}
+
+	fun void gen_scale(string start_note, int octave, int pScale[])
+	{
+		note2index(start_note) => int note_index;	//	Get note index
+
+		<<< "start note ", start_note >>>;
+		<<< "note index ", note_index >>>;
+
+		0 => int midi;
+		8 => scale.size;
+		for (0 => int jdx; jdx < 8; jdx++)
+		{
+			note_index + pScale[jdx] => note_index;
+			octave * 12 + note_index => midi => scale[jdx];
+		}	
 	}
 
 	fun float note2freq (string note)
@@ -115,64 +157,6 @@ public class Clape
 
 		// reset the tokenizer
 		strtok.reset();
-	}
-
-	fun string index2Note(int idx)
-	{
-		idx % 12 => idx;
-
-		if (idx == 0) return "C";
-			if (idx == 1) return "C#";
-		if (idx == 2) return "D";
-			if (idx == 3) return "D#";
-		if (idx == 4) return "E";
-		if (idx == 5) return "F";
-			if (idx == 6) return "F#";
-		if (idx == 7) return "G";
-			if (idx == 8) return "G#";
-		if (idx == 9) return "A";
-			if (idx == 10) return "A#";
-		if (idx == 11) return "B";
-
-		return "C";
-	}
-
-	fun void gen_minor_scale(string start_note, int octave)
-	{
-		//	W H W W H W W / T S T T S T T
-		[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor[];
-
-		note2index(start_note) => int note_index;	//	Get note index
-		
-		0 => int midi;
-		8 => scale.size;
-		for (0 => int jdx; jdx < 8; jdx++)
-		{
-			note_index + minor[jdx] => note_index;
-			octave * 12 + note_index => midi => scale[jdx];
-		}		
-	}
-
-	fun void gen_major_scale(string start_note, int octave)
-	{
-		//	Major Scale
-		//  W W H W W W H / T T S T T T S
-
-		//	<<< start_note + "" + octave >>>;
-
-		//	C, 5 => 5 * 12 + index(C)
-
-		[0, 2, 2, 1, 2, 2, 2, 1] @=> int major[];
-
-		note2index(start_note) => int note_index;	//	Get note index
-		
-		0 => int midi;
-		8 => scale.size;
-		for (0 => int jdx; jdx < 8; jdx++)
-		{
-			note_index + major[jdx] => note_index;
-			octave * 12 + note_index => midi => scale[jdx];
-		}		
 	}
 
 }

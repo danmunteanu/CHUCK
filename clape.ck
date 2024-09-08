@@ -13,11 +13,16 @@ public class Clape
 	//	The notes we'll play
 	string notes[100];
 
-	//  W W H W W W H / T T S T T T S
-	[0, 2, 2, 1, 2, 2, 2, 1] @=> int major[];
+	//  A major scale is a pattern of intervals
+	//   W W H W W W H / T T S T T T S
+	[0, 2, 2, 1, 2, 2, 2, 1] @=> int scale_major[];
 
 	//	W H W W H W W / T S T T S T T
-	[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor[];
+	[0, 2, 1, 2, 2, 1, 2, 2] @=> int scale_minor[];
+
+	//	Chords
+	[0, 4, 3] @=> int chord_major[];
+	[0, 3, 4] @=> int chord_minor[];
 
 	//	minor/major scale of midi notes
 	int scale[8];
@@ -106,23 +111,43 @@ public class Clape
 		//	get the index of the note	
 		note2index(note.upper()) => int idx;
 
-		<<< "Index " + idx >>>;
+		//<<< "Index " + idx >>>;
 
 		return Std.mtof(root + idx);
 	}
 
-	fun void up_octave()
+	fun void octave_up()
 	{
 		octave + 1 => octave;
 		if (octave > 11)
 			11 => octave;
 	}
 
-	fun void down_octave()
+	fun void octave_down()
 	{
 		octave - 1 => octave;
 		if (octave < 0)
 			0 => octave;
+	}
+
+	fun int[] chord(int pos, int pChord[])
+	{
+		//	pos = position in scale [0, 8]
+		//	pChord = chord type
+
+		[0, 0, 0] @=> int res[];
+
+		"Chord: [" => string str;
+		for (0 => int idx; idx < pChord.size(); idx++)
+		{
+			scale[pos] + pChord[idx] => res[idx] => int v;
+			str + v + " " => str;
+			
+		}
+		str + "]" => str;
+		<<< str >>>;
+
+		return res;
 	}
 
 	fun void score_to_music (string score)

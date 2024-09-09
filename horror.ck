@@ -13,11 +13,13 @@ delays[1] => delays[0];
 
 48 => int offset;
 
-0.8 => stk.bowPressure;
+0.5 => stk.bowPressure;
 3 => stk.preset;
 
 while (true)
 {
+    Math.random2f (0.1, 0.6) => stk.bowPressure;
+
     Math.random2(0, 2) => int position;
     (position * 12) + offset + notes[Math.random2(0, notes.cap() - 1)] => int note;
     note => Std.mtof => stk.freq;

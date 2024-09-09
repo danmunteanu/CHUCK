@@ -68,6 +68,26 @@ public class Clape
 		return idx;
 	}
 
+	fun void note2index2(string note)
+	{
+		if (note.length() == 2)
+		{
+			//	C2 or C# or Bb 		+//	allow mistakes BB or DB			
+			
+			
+			// if (note.at(0) >= 'A' && note[0] <= 'G' || 
+			// 	note[0] >= 'a' && note[0] <= 'g')
+			// 	{
+
+			// 	}
+		}
+
+		if (note.size == 3)
+		{
+			//	C#3
+		}
+	}
+
 	fun string index2Note(int idx)
 	{
 		idx % 12 => idx;

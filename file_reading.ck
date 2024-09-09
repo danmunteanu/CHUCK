@@ -4,7 +4,7 @@ TriOsc osc => ADSR env => dac;
 FileIO io;
 StringTokenizer tok;
 
-io.open("song.txt", FileIO.READ) => int result;
+io.open("king.txt", FileIO.READ) => int result;
 
 2::second => dur beat;
 48 => int offset;

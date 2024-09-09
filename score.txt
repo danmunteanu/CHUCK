@@ -1,0 +1,23 @@
+E F# G# E B B B E E C#
+F# G# E B B E E E C#
+F# F# F# F# F# G#
+B B E G# F#
+B F# F# F# F# F# G#
+B B E G# F#
+
+F# G# E B B E E E C#
+F# G# E B B E E E C#
+F# F# F# F# F# G#
+B B E G# F#
+B F# F# F# F# F# G#
+B B E G# F# E" => string verse1;
+
+"G# G# F# E F# F# G# F# E
+F# F# F# F# A E F# F# E
+G# G# F# E F# F# G# F# E
+F# F# F# F# A E F# F# E C#
+
+G# G# G# C# F# F# F# B F# F# B
+F# F# F# F# A E F# F# E C#
+G# G# G# C# F# F# F# B F# F# B
+F# F# F# F# A E F# F# E

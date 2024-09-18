@@ -10,6 +10,9 @@ public class Clape
 {
 	//	60 MIDI = C5
 
+	11 => int MAX_OCTAVE;
+	0 => int MIN_OCTAVE;
+
 	//	The notes we'll play
 	string notes[100];
 
@@ -24,10 +27,18 @@ public class Clape
 	[0, 4, 3] @=> int chord_major[];
 	[0, 3, 4] @=> int chord_minor[];
 
-	//	minor/major scale of midi notes
+	//	MIDI Notes For Active Scale
 	int scale[8];
 
-	4 => int octave;
+	5 => int octave;
+
+	fun @construct()
+	{
+		//fun void gen_scale(string start_note, int octave, int pScale[])
+
+		//	Load major scale starting on C5
+		gen_scale("C", 5, scale_major);
+	}
 
 	//	root = octave * 12
 
@@ -88,6 +99,12 @@ public class Clape
 		// }
 	}
 
+	fun int validateNote(string note)
+	{
+		return 0;	
+	}
+
+	//	Return Sharps or Flats?
 	fun string index2Note(int idx)
 	{
 		idx % 12 => idx;
@@ -108,6 +125,7 @@ public class Clape
 		return "C";
 	}
 
+	//	Generates MIDI notes based on pScale and stores them into the scale array
 	fun void gen_scale(string start_note, int octave, int pScale[])
 	{
 		note2index(start_note) => int note_index;	//	Get note index
@@ -121,11 +139,13 @@ public class Clape
 		{
 			note_index + pScale[jdx] => note_index;
 			octave * 12 + note_index => midi => scale[jdx];
-		}	
+		}
 	}
 
+	//	Returns the frequency of the note based on current octave
 	fun float note2freq (string note)
 	{
+		//	root note of the octave
 		octave * 12 => int root;
 
 		//	get the index of the note	
@@ -133,21 +153,22 @@ public class Clape
 
 		//<<< "Index " + idx >>>;
 
+		//	Frequency
 		return Std.mtof(root + idx);
 	}
 
 	fun void octave_up()
 	{
 		octave + 1 => octave;
-		if (octave > 11)
-			11 => octave;
+		if (octave > MAX_OCTAVE)
+			MAX_OCTAVE => octave;
 	}
 
 	fun void octave_down()
 	{
 		octave - 1 => octave;
-		if (octave < 0)
-			0 => octave;
+		if (octave < MIN_OCTAVE)
+			MIN_OCTAVE => octave;
 	}
 
 	fun int[] chord(int pos, int pChord[])

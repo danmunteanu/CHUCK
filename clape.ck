@@ -82,10 +82,10 @@ public class Clape
 			// 	}
 		}
 
-		if (note.size == 3)
-		{
-			//	C#3
-		}
+		// if (note.size() == 3)
+		// {
+		// 	//	C#3
+		// }
 	}
 
 	fun string index2Note(int idx)

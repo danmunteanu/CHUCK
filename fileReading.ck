@@ -4,7 +4,10 @@ TriOsc osc => ADSR env => dac;
 FileIO io;
 StringTokenizer tok;
 
-io.open("king.txt", FileIO.READ) => int result;
+io.open("song_moonlight_densetsu.txt", FileIO.READ) => int result;
+
+Clape clape;
+5 => clape.octave;
 
 2::second => dur beat;
 48 => int offset;
@@ -27,13 +30,31 @@ fun void ProcessRest(string line)
 fun void ProcessNote(string line)
 {
     tok.set(line);
-    tok.next() => Std.atoi => int note;
+    tok.next() => string note;
     tok.next() => Std.atoi => int div;
     <<< note, div >>>;
+
+    clape.note2freq(note) => osc.freq;
+
     //<<< "tok ", tok.more() >>>;
-    note + offset => Std.mtof => osc.freq;
+    // note + offset => Std.mtof => osc.freq;
     1 => env.keyOn;
     beat / div => now;
+}
+
+fun void ProcessOctave(string line)
+{
+    tok.set(line);
+    tok.next() => string op;
+    if (op == "OCT")
+        tok.next() => Std.atoi => clape.octave;
+    else if (op == "DOWN")
+        clape.octave_down();
+    else if (op == "UP")
+        clape.octave_up();
+    
+    <<< clape.octave >>>;
+
 }
 
 //while (true)
@@ -51,6 +72,12 @@ fun void ProcessNote(string line)
         {
             //  Process Rest
             line => ProcessRest;
+        }
+        else if (line.find("OCT") == 0 || 
+                line.find("DOWN") == 0 || 
+                line.find("UP") == 0)
+        {
+            line => ProcessOctave;
         }
         else {
             line => ProcessNote;

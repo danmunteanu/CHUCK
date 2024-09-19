@@ -43,8 +43,9 @@ public class Clape
 	//	root = octave * 12
 
 	//	returns an index between [0, 11]
-	fun int note2index(string note)
+	fun int note2index(string n)
 	{
+		n.upper() => string note;
 		0 => int idx;
 		
 		if ("C" == note) 0 => idx;

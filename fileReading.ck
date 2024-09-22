@@ -4,7 +4,8 @@ TriOsc osc => ADSR env => dac;
 FileIO io;
 StringTokenizer tok;
 
-io.open("song_moonlight_densetsu.txt", FileIO.READ) => int result;
+//io.open("song_moonlight_densetsu.txt", FileIO.READ) => int result;
+io.open("linkin_park.txt", FileIO.READ) => int result;
 
 Clape clape;
 5 => clape.octave;

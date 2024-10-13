@@ -4,8 +4,8 @@ TriOsc osc => ADSR env => dac;
 FileIO io;
 StringTokenizer tok;
 
-//io.open("song_moonlight_densetsu.txt", FileIO.READ) => int result;
-io.open("linkin_park.txt", FileIO.READ) => int result;
+io.open("scores/song_moonlight_densetsu.txt", FileIO.READ) => int result;
+// io.open("scores/linkin_park.txt", FileIO.READ) => int result;
 
 Clape clape;
 5 => clape.octave;
@@ -58,12 +58,26 @@ fun void ProcessOctave(string line)
 
 }
 
+
+21 => int lineStart;
+0 => int numLine;
+
 //while (true)
 {
     while (io.more())
-    {
-        io.readLine() => string line;
+    {        
+        string line;
 
+        if (numLine < lineStart)
+        {
+            //  Jump lines
+            io.readLine() => line;
+            
+            1 + numLine => numLine;
+            continue;
+        }
+
+        io.readLine() => line;
         if (line.find ("//") == 0)
         {
             //  Process comment

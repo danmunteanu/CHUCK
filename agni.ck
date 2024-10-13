@@ -1,3 +1,5 @@
+//	Run with Clape.ck
+
 // SinOsc osc => dac;
 // 440 => osc.freq;
 // 0.3 => osc.gain;

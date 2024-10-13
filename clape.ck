@@ -1,4 +1,3 @@
-
 //	Chords using notes from the scale => Diatonic
 
 //	Chords using notes not all from the scale => Chromatic
@@ -18,10 +17,10 @@ public class Clape
 
 	//  A major scale is a pattern of intervals
 	//   W W H W W W H / T T S T T T S
-	[0, 2, 2, 1, 2, 2, 2, 1] @=> int scale_major[];
+	[0, 2, 2, 1, 2, 2, 2, 1] @=> int major_scale[];
 
 	//	W H W W H W W / T S T T S T T
-	[0, 2, 1, 2, 2, 1, 2, 2] @=> int scale_minor[];
+	[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor_scale[];
 
 	//	Chords
 	[0, 4, 3] @=> int chord_major[];
@@ -34,10 +33,8 @@ public class Clape
 
 	fun @construct()
 	{
-		//fun void gen_scale(string start_note, int octave, int pScale[])
-
 		//	Load major scale starting on C5
-		gen_scale("C", 5, scale_major);
+		gen_scale("C", 5, major_scale);
 	}
 
 	//	root = octave * 12
@@ -80,14 +77,15 @@ public class Clape
 		return idx;
 	}
 
-	fun void note2index2(string note)
+	fun void note2index2(string n)
 	{
+		n.lower() => string note;
 		if (note.length() == 2)
 		{
 			//	C2 or C# or Bb 		+//	allow mistakes BB or DB			
 			
 			
-			// if (note.at(0) >= 'A' && note[0] <= 'G' || 
+			// if (note[0] >= 'A' && note[0] <= 'G' || 
 			// 	note[0] >= 'a' && note[0] <= 'g')
 			// 	{
 
@@ -127,7 +125,7 @@ public class Clape
 	}
 
 	//	Generates MIDI notes based on pScale and stores them into the scale array
-	fun void gen_scale(string start_note, int octave, int pScale[])
+	fun void gen_scale(string start_note, int octave, int p_scale[])
 	{
 		note2index(start_note) => int note_index;	//	Get note index
 
@@ -138,7 +136,7 @@ public class Clape
 		8 => scale.size;
 		for (0 => int jdx; jdx < 8; jdx++)
 		{
-			note_index + pScale[jdx] => note_index;
+			note_index + p_scale[jdx] => note_index;
 			octave * 12 + note_index => midi => scale[jdx];
 		}
 	}

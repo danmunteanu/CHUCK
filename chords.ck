@@ -4,8 +4,6 @@
 
 //  [0, 2, 5]   Sus2
 
-
-
 //  ## 7th Chord
 
 //  Dominant Maj3-min3-min3

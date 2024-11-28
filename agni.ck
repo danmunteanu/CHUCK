@@ -81,7 +81,8 @@ F# F# F# F# A E F# F# E" => string chorus;
 //score_to_music ("C D E F G A B C");
 
 6 => clape.octave;
-clape.score_to_music(agni);
+// clape.score_to_music(agni);
+clape.score_to_music(chorus);
 //clape.score_to_music("C D E F G A B C");
 
 //score_to_music (verse1);

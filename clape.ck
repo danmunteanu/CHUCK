@@ -31,16 +31,29 @@ public class Clape
 
 	5 => int octave;
 
+	//	Static vector
+	@(5,6,7) => static vec3 S_VEC3;
+
+	// array
+    [8,9,10,11] @=> static int S_INT_ARRAY[];
+
+	//	ctor
 	fun @construct()
 	{
 		//	Load major scale starting on C5
-		gen_scale("C", 5, major_scale);
+		load_scale("C", 5, major_scale);
+	}
+
+	//	dtor
+	fun @destruct()
+	{
+		//	handle destruction operations		
 	}
 
 	//	root = octave * 12
 
 	//	returns an index between [0, 11]
-	fun int note2index(string n)
+	fun static int note2index(string n)
 	{
 		n.upper() => string note;
 		0 => int idx;
@@ -77,26 +90,6 @@ public class Clape
 		return idx;
 	}
 
-	fun void note2index2(string n)
-	{
-		n.lower() => string note;
-		if (note.length() == 2)
-		{
-			//	C2 or C# or Bb 		+//	allow mistakes BB or DB			
-			
-			
-			// if (note[0] >= 'A' && note[0] <= 'G' || 
-			// 	note[0] >= 'a' && note[0] <= 'g')
-			// 	{
-
-			// 	}
-		}
-
-		// if (note.size() == 3)
-		// {
-		// 	//	C#3
-		// }
-	}
 
 	fun int validateNote(string note)
 	{
@@ -104,7 +97,7 @@ public class Clape
 	}
 
 	//	Return Sharps or Flats?
-	fun string index2Note(int idx)
+	fun static string index2Note(int idx)
 	{
 		idx % 12 => idx;
 
@@ -124,8 +117,8 @@ public class Clape
 		return "C";
 	}
 
-	//	Generates MIDI notes based on pScale and stores them into the scale array
-	fun void gen_scale(string start_note, int octave, int p_scale[])
+	//	Generates MIDI notes based on p_scale and stores them into the scale array
+	fun void load_scale(string start_note, int octave, int p_scale[])
 	{
 		note2index(start_note) => int note_index;	//	Get note index
 
@@ -156,6 +149,7 @@ public class Clape
 		return Std.mtof(root + idx);
 	}
 
+	//	raises the current octave up, below MAX_OCTAVE
 	fun void octave_up()
 	{
 		octave + 1 => octave;
@@ -163,6 +157,7 @@ public class Clape
 			MAX_OCTAVE => octave;
 	}
 
+	//	decreases the current octave DOWN to MIN_OCTAVE
 	fun void octave_down()
 	{
 		octave - 1 => octave;

@@ -45,7 +45,7 @@ fun void play_chord(int pChord[])
 	beat * 0.8 => now;
 }
 
-clape.gen_scale("C", octave, clape.scale_major);
+clape.load_scale("C", octave, clape.major_scale);
 //clape.chord(7, clape.chord_major) @=> chord;
 //play_chord(chord);
 

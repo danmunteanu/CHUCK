@@ -1,11 +1,11 @@
 //  FM Synthesis
 SinOsc mod1 => ADSR env1 => 
 SinOsc carrier =>
-dac => 
-WvOut wave =>
-blackhole;
+		dac => 
+		WvOut wave =>
+		blackhole;
 
-"testFM.wav" => wave.wavFilename;
+"fm_voice.wav" => wave.wavFilename;
 2 => carrier.sync;
 0.8 => carrier.gain;
 

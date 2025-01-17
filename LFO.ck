@@ -1,3 +1,6 @@
+
+//	OSCILLATES
+
 SinOsc lfo2 => blackhole;
 SinOsc lfo => blackhole;
 TriOsc osc => LPF filter => dac;
@@ -7,7 +10,10 @@ TriOsc osc => LPF filter => dac;
 0.5 => lfo2.freq;
 1 => lfo.freq;
 55 => int oscFreq => osc.freq;
-0.125 => float oscGain => osc.gain;
+
+//	set this at 0.500 and it distorts
+0.250 => float oscGain => osc.gain;	//	maybe a Dyno is useful here?
+
 500 => float filterFreq => filter.freq;
 3 => filter.Q;
 

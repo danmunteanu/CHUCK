@@ -10,6 +10,7 @@ delays[0] => delays[1];
 delays[1] => delays[0];
 
 [0, 4, 7, 11] @=> int notes[];
+//	[0, 3, 5, 9] @=> int notes[];
 
 48 => int offset;
 

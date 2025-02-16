@@ -18,7 +18,7 @@ MusicTri osc => dac;
 220 => osc.freq;
 0.2 => osc.gain;
 
-[0, 4, 7, 11] @=> int notes[];
+[0, 3, 7, 11] @=> int notes[];
 48 => int offset;
 
 while (true)

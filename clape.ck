@@ -16,7 +16,7 @@ public class Clape
 	string notes[100];
 
 	//  A major scale is a pattern of intervals
-	//   W W H W W W H / T T S T T T S
+	//   W W H W W W H or T T S T T T S
 	[0, 2, 2, 1, 2, 2, 2, 1] @=> int major_scale[];
 
 	//	W H W W H W W / T S T T S T T
@@ -30,12 +30,6 @@ public class Clape
 	int scale[8];
 
 	5 => int octave;
-
-	//	Static vector
-	@(5,6,7) => static vec3 S_VEC3;
-
-	// array
-    [8,9,10,11] @=> static int S_INT_ARRAY[];
 
 	//	ctor
 	fun @construct()

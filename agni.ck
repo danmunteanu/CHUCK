@@ -1,4 +1,4 @@
-//	Run with Clape.ck
+//	Run with piano.ck
 
 // SinOsc osc => dac;
 // 440 => osc.freq;
@@ -7,14 +7,12 @@
 TriOsc osc => ADSR env1 => dac;
 0.45 => osc.gain;
 
-1::second => dur beat;
+1.5::second => dur beat;
 (0::ms, beat / 2, 0, 1::ms) => env1.set;
 //(, beat, 1, 50::ms) => env1.set;
 
-//	Root C
-//60 => int root;
-
-Clape clape;
+//	Music Theory instance
+Clape piano;
 
 fun void pause (dur len)
 {
@@ -26,7 +24,7 @@ fun void pause (dur len)
 
 fun void play_music()
 {
-	for (string note : clape.notes)
+	for (string note : piano.notes)
 	{
 		<<< note >>>;
 
@@ -39,7 +37,7 @@ fun void play_music()
 		
 		1::second / 2  => dur len;
 
-		clape.note2freq(note) => osc.freq;
+		piano.note2freq(note) => osc.freq;
 		
         1 => env1.keyOn;
         
@@ -78,12 +76,11 @@ G# G# G# C# F# F# F# B F# F# B
 F# F# F# F# A E F# F# E" => string chorus;
 
 //	load C major
-//score_to_music ("C D E F G A B C");
+//piano.score_to_music ("C D E F G A B C");
 
-6 => clape.octave;
-//clape.score_to_music(agni);
-//clape.score_to_music(chorus);
-clape.score_to_music("C D E F G A B C");
+6 => piano.octave;
+piano.score_to_music(agni);
+//piano.score_to_music(chorus);
 
 //score_to_music (verse1);
 //score_to_music (chorus);

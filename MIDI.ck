@@ -17,6 +17,10 @@
 //  There are only 12 notes
 //  Most songs use most 7 notes
 
+//  ==Music Theory==
+//  Major Chords = Bright, Happy
+//  Minor Chords = Darker, Sad
+
 /*  CODE
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] @=> int notes[];
 
@@ -29,15 +33,8 @@ for (0 => int i; i < 11; i++)
     200::ms => now;
 }*/
 
-//  Music Theory
-
-//  Major Chords = Bright, Happy
-
-//  Minor Chords = Darker, Sad
-
 [0, 4, 7] @=> int major[];
 [0, 3, 7] @=> int minor[];
-
 
 SinOsc osc => dac;// => WvOut waveOut => blackhole;
 // "Midi.wav" => waveOut.wavFilename;

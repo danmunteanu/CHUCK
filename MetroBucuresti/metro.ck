@@ -142,7 +142,7 @@ fun void load_line (string line)
 //  Toggle Save To Wav
 0 => int SaveToWav;
 
-"M1" => string line;
+"M3" => string line;
 load_line (line);
 
 

@@ -13,29 +13,30 @@ public class Clape
 	0 => int MIN_OCTAVE;
 
 	//	The notes we'll play
-	string notes[100];
+	string m_Notes[256];
 
 	//  A major scale is a pattern of intervals
 	//   W W H W W W H or T T S T T T S
-	[0, 2, 2, 1, 2, 2, 2, 1] @=> int major_scale[];
+	[0, 2, 2, 1, 2, 2, 2, 1] @=> int m_MajorScale[];
 
 	//	W H W W H W W / T S T T S T T
-	[0, 2, 1, 2, 2, 1, 2, 2] @=> int minor_scale[];
+	[0, 2, 1, 2, 2, 1, 2, 2] @=> int m_MinorScale[];
 
 	//	Chords
 	[0, 4, 3] @=> int chord_major[];
 	[0, 3, 4] @=> int chord_minor[];
 
-	//	MIDI Notes For Active Scale
-	int scale[8];
+	//	Active scale, contains MIDI Notes
+	int m_Scale[8];
 
-	5 => int octave;
+	//	active octave
+	5 => int m_Octave;
 
 	//	ctor
 	fun @construct()
 	{
 		//	Load major scale starting on C5
-		load_scale("C", 5, major_scale);
+		load_scale("C", 5, m_MajorScale);
 	}
 
 	//	dtor
@@ -46,7 +47,8 @@ public class Clape
 
 	//	root = octave * 12
 
-	//	returns an index between [0, 11]
+	//	maps a note to an index between [0, 11]
+	//	e.g. C -> 0, D# -> 3, etc.
 	fun static int note2index(string n)
 	{
 		n.upper() => string note;
@@ -95,17 +97,20 @@ public class Clape
 	{
 		idx % 12 => idx;
 
+		//	default to sharps
+		"x" => string x;
+
 		if (idx == 0) return "C";
-			if (idx == 1) return "C#";
+			if (idx == 1) return "C" + x;
 		if (idx == 2) return "D";
-			if (idx == 3) return "D#";
+			if (idx == 3) return "D" + x;
 		if (idx == 4) return "E";
 		if (idx == 5) return "F";
-			if (idx == 6) return "F#";
+			if (idx == 6) return "F" + x;
 		if (idx == 7) return "G";
-			if (idx == 8) return "G#";
+			if (idx == 8) return "G" + x;
 		if (idx == 9) return "A";
-			if (idx == 10) return "A#";
+			if (idx == 10) return "A" + x;
 		if (idx == 11) return "B";
 
 		return "C";
@@ -120,11 +125,11 @@ public class Clape
 		<<< "note index ", note_index >>>;
 
 		0 => int midi;
-		8 => scale.size;
+		8 => m_Scale.size;
 		for (0 => int jdx; jdx < 8; jdx++)
 		{
 			note_index + p_scale[jdx] => note_index;
-			octave * 12 + note_index => midi => scale[jdx];
+			octave * 12 + note_index => midi => m_Scale[jdx];
 		}
 	}
 
@@ -132,7 +137,7 @@ public class Clape
 	fun float note2freq (string note)
 	{
 		//	root note of the octave
-		octave * 12 => int root;
+		m_Octave * 12 => int root;
 
 		//	get the index of the note	
 		note2index(note.upper()) => int idx;
@@ -143,20 +148,20 @@ public class Clape
 		return Std.mtof(root + idx);
 	}
 
-	//	raises the current octave up, below MAX_OCTAVE
+	//	raises the current octave, but keeps it below MAX_OCTAVE
 	fun void octave_up()
 	{
-		octave + 1 => octave;
-		if (octave > MAX_OCTAVE)
-			MAX_OCTAVE => octave;
+		m_Octave + 1 => m_Octave;
+		if (m_Octave > MAX_OCTAVE)
+			MAX_OCTAVE => m_Octave;
 	}
 
 	//	decreases the current octave DOWN to MIN_OCTAVE
 	fun void octave_down()
 	{
-		octave - 1 => octave;
-		if (octave < MIN_OCTAVE)
-			MIN_OCTAVE => octave;
+		m_Octave - 1 => m_Octave;
+		if (m_Octave < MIN_OCTAVE)
+			MIN_OCTAVE => m_Octave;
 	}
 
 	fun int[] chord(int pos, int pChord[])
@@ -169,7 +174,7 @@ public class Clape
 		"Chord: [" => string str;
 		for (0 => int idx; idx < pChord.size(); idx++)
 		{
-			scale[pos] + pChord[idx] => res[idx] => int v;
+			m_Scale[pos] + pChord[idx] => res[idx] => int v;
 			str + v + " " => str;
 			
 		}
@@ -190,7 +195,7 @@ public class Clape
 		<<< "tokens found:", strtok.size() >>>;
 
 		//	Allocate size of notes
-		strtok.size() => notes.size;
+		strtok.size() => m_Notes.size;
 
 		//	Reset Index
 		0 => int idx;
@@ -202,7 +207,7 @@ public class Clape
 			strtok.next() => string token;
 
 			//	Save this token to array
-			token => notes[idx];
+			token => m_Notes[idx];
 
 			//	<<< "Note " + idx + ": " + notes[idx] >>>;
 

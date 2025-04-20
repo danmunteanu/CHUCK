@@ -10,13 +10,13 @@
 
 Gain master => dac;
 60 => int root; //  C5
-0.65::second => dur beat;  //  Duration
+0.55f::second => dur beat;  //  Duration
 
 //  Oscillators
 [new TriOsc, new TriOsc, new TriOsc] @=> TriOsc oscs[];
 
 //  Max gain for oscillators
-0.4f / oscs.size() => float max_gain;
+1.0f / oscs.size() => float max_gain;
 <<< "Max Gain: " + max_gain >>>;
 
 //  Initialize oscillators
@@ -52,13 +52,14 @@ fun playScale(int root, int scale[])
 
 }
 
-playScale(root, scaleMinor);
+// playChord(oscs, 60, chordMajor, 1::second);
+
+playScale(60, scaleMajor);
 
 //  pause a bit
 0 => master.gain;
 0.5::second => now;
 1 => master.gain;
 
-playScale(root, scaleMajor);
-
 // playChord(oscs, 65, chordMinor, 1::second);
+

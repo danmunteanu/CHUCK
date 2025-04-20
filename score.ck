@@ -9,7 +9,7 @@ io.open("scores/song_moonlight_densetsu.txt", FileIO.READ) => int result;
 // io.open("scores/score.txt", FileIO.READ) => int result;
 
 Clape clape;
-5 => clape.m_Octave;
+5 => clape.mOctave;
 
 2::second => dur beat;
 48 => int offset;
@@ -49,13 +49,13 @@ fun void ProcessOctave(string line)
     tok.set(line);
     tok.next() => string op;
     if (op == "OCT")
-        tok.next() => Std.atoi => clape.m_Octave;
+        tok.next() => Std.atoi => clape.mOctave;
     else if (op == "DOWN")
         clape.octave_down();
     else if (op == "UP")
         clape.octave_up();
     
-    <<< clape.m_Octave >>>;
+    <<< clape.mOctave >>>;
 
 }
 

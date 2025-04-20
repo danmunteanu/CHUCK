@@ -30,7 +30,7 @@ public class Clape
 	int m_Scale[8];
 
 	//	active octave
-	5 => int m_Octave;
+	5 => int mOctave;
 
 	//	ctor
 	fun @construct()
@@ -137,7 +137,7 @@ public class Clape
 	fun float note2freq (string note)
 	{
 		//	root note of the octave
-		m_Octave * 12 => int root;
+		mOctave * 12 => int root;
 
 		//	get the index of the note	
 		note2index(note.upper()) => int idx;
@@ -151,17 +151,17 @@ public class Clape
 	//	raises the current octave, but keeps it below MAX_OCTAVE
 	fun void octave_up()
 	{
-		m_Octave + 1 => m_Octave;
-		if (m_Octave > MAX_OCTAVE)
-			MAX_OCTAVE => m_Octave;
+		mOctave + 1 => mOctave;
+		if (mOctave > MAX_OCTAVE)
+			MAX_OCTAVE => mOctave;
 	}
 
 	//	decreases the current octave DOWN to MIN_OCTAVE
 	fun void octave_down()
 	{
-		m_Octave - 1 => m_Octave;
-		if (m_Octave < MIN_OCTAVE)
-			MIN_OCTAVE => m_Octave;
+		mOctave - 1 => mOctave;
+		if (mOctave < MIN_OCTAVE)
+			MIN_OCTAVE => mOctave;
 	}
 
 	fun int[] chord(int pos, int pChord[])

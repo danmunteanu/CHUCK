@@ -13,21 +13,21 @@ public class Clape
 	0 => int MIN_OCTAVE;
 
 	//	The notes we'll play
-	string m_Notes[256];
+	string mNotes[256];
 
 	//  A major scale is a pattern of intervals
 	//   W W H W W W H or T T S T T T S
-	[0, 2, 2, 1, 2, 2, 2, 1] @=> int m_MajorScale[];
+	[0, 2, 2, 1, 2, 2, 2, 1] @=> int mMajorScale[];
 
 	//	W H W W H W W / T S T T S T T
-	[0, 2, 1, 2, 2, 1, 2, 2] @=> int m_MinorScale[];
+	[0, 2, 1, 2, 2, 1, 2, 2] @=> int mMinorScale[];
 
 	//	Chords
 	[0, 4, 3] @=> int chord_major[];
 	[0, 3, 4] @=> int chord_minor[];
 
 	//	Active scale, contains MIDI Notes
-	int m_Scale[8];
+	int mScale[8];
 
 	//	active octave
 	5 => int mOctave;
@@ -36,23 +36,25 @@ public class Clape
 	fun @construct()
 	{
 		//	Load major scale starting on C5
-		load_scale("C", 5, m_MajorScale);
+		load_scale("C", 5, mMajorScale);
 	}
 
 	//	dtor
 	fun @destruct()
 	{
-		//	handle destruction operations		
+		//	handle destruction operations, if any	
 	}
 
 	//	root = octave * 12
 
-	//	maps a note to an index between [0, 11]
-	//	e.g. C -> 0, D# -> 3, etc.
+	//	note2index maps a note to an index between [0, 11]
+	//	e.g. 
+	//		C -> 0, 
+	//		D# -> 3
 	fun static int note2index(string n)
 	{
 		n.upper() => string note;
-		0 => int idx;
+		-1 => int idx;
 		
 		if ("C" == note) 0 => idx;
 		
@@ -86,19 +88,39 @@ public class Clape
 		return idx;
 	}
 
-
-	fun int validateNote(string note)
+	fun int validateNote(string n)
 	{
-		return 0;	
+		n.upper() => string note;
+
+		return
+			("C" == note) ||
+				("C#" == note) ||
+				("DB" == note) ||
+			("D" == note) ||	
+				("D#" == note) ||
+				("EB" == note) ||
+			("E" == note) ||		
+			("F" == note) ||		
+				("F#" == note) ||
+				("GB" == note) ||
+			("G" == note) ||		
+				("G#" == note) ||
+				("AB" == note) ||
+			("A" == note) ||	
+				("A#" == note) ||
+				("BB" == note) ||
+			("B" == note);
 	}
 
-	//	Return Sharps or Flats?
+	//	converts a [0, 11] index to a note (uses modulo 12)
 	fun static string index2Note(int idx)
 	{
+		//	Return Sharps or Flats?
+
 		idx % 12 => idx;
 
 		//	default to sharps
-		"x" => string x;
+		"#" => string x;
 
 		if (idx == 0) return "C";
 			if (idx == 1) return "C" + x;
@@ -113,6 +135,7 @@ public class Clape
 			if (idx == 10) return "A" + x;
 		if (idx == 11) return "B";
 
+		//	default to C
 		return "C";
 	}
 
@@ -125,11 +148,11 @@ public class Clape
 		<<< "note index ", note_index >>>;
 
 		0 => int midi;
-		8 => m_Scale.size;
+		8 => mScale.size;
 		for (0 => int jdx; jdx < 8; jdx++)
 		{
 			note_index + p_scale[jdx] => note_index;
-			octave * 12 + note_index => midi => m_Scale[jdx];
+			octave * 12 + note_index => midi => mScale[jdx];
 		}
 	}
 
@@ -140,7 +163,7 @@ public class Clape
 		mOctave * 12 => int root;
 
 		//	get the index of the note	
-		note2index(note.upper()) => int idx;
+		note2index(note) => int idx;
 
 		//<<< "Index " + idx >>>;
 
@@ -149,7 +172,7 @@ public class Clape
 	}
 
 	//	raises the current octave, but keeps it below MAX_OCTAVE
-	fun void octave_up()
+	fun void octaveUp()
 	{
 		mOctave + 1 => mOctave;
 		if (mOctave > MAX_OCTAVE)
@@ -157,33 +180,14 @@ public class Clape
 	}
 
 	//	decreases the current octave DOWN to MIN_OCTAVE
-	fun void octave_down()
+	fun void octaveDown()
 	{
 		mOctave - 1 => mOctave;
 		if (mOctave < MIN_OCTAVE)
 			MIN_OCTAVE => mOctave;
 	}
 
-	fun int[] chord(int pos, int pChord[])
-	{
-		//	pos = position in scale [0, 8]
-		//	pChord = chord type
-
-		[0, 0, 0] @=> int res[];
-
-		"Chord: [" => string str;
-		for (0 => int idx; idx < pChord.size(); idx++)
-		{
-			m_Scale[pos] + pChord[idx] => res[idx] => int v;
-			str + v + " " => str;
-			
-		}
-		str + "]" => str;
-		<<< str >>>;
-
-		return res;
-	}
-
+	//	Converts score to music
 	fun void score_to_music (string score)
 	{
 		StringTokenizer strtok;
@@ -195,7 +199,7 @@ public class Clape
 		<<< "tokens found:", strtok.size() >>>;
 
 		//	Allocate size of notes
-		strtok.size() => m_Notes.size;
+		strtok.size() => mNotes.size;
 
 		//	Reset Index
 		0 => int idx;
@@ -207,7 +211,7 @@ public class Clape
 			strtok.next() => string token;
 
 			//	Save this token to array
-			token => m_Notes[idx];
+			token => mNotes[idx];
 
 			//	<<< "Note " + idx + ": " + notes[idx] >>>;
 

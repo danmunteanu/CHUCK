@@ -1,3 +1,5 @@
+//	Lesson 17
+
 <<< "score.ck" >>>;
 
 me.dir() + "bass1.ck" => string bass1Filename;
